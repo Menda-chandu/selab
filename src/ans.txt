@@ -1,0 +1,146 @@
+# Git Tasks and Solutions
+
+---
+
+1. Interact with GitHub without entering username/password each time
+
+Use SSH keys for secure, password-less authentication.
+
+Commands:
+# Generate SSH key (if not already)
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+# Start ssh-agent and add key
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+# Add your public key (~/.ssh/id_ed25519.pub) to GitHub (GitHub Settings > SSH and GPG keys)
+
+# Change remote URL to SSH
+git remote set-url origin git@github.com:username/repo.git
+
+# Verify active config (should show SSH)
+git remote -v
+
+---
+
+2. Resolve merge conflict keeping main branch as source of truth
+
+Scenario: You worked on a copy, now merging back into main causes conflicts.
+
+Steps:
+git checkout main
+git merge --no-ff feature-copy
+
+# On conflicts, keep main's version
+git checkout --ours <conflicted-file>
+# or for all conflicts:
+git checkout --ours .
+
+git add <conflicted-file>
+git commit
+
+---
+
+3. Reorder commits so parent commit comes before child commit
+
+You committed child.txt first, then parent.txt; need to swap order:
+
+git rebase -i HEAD~2
+
+# In the editor, swap lines:
+# pick <child-commit>
+# pick <parent-commit>
+# to
+# pick <parent-commit>
+# pick <child-commit>
+
+Save and exit to reorder commits.
+
+---
+
+4. Update commit message meaningfully without changing commit ID
+
+Note: Changing a commit message changes the commit ID.
+
+If you cannot rewrite history on remote, use git notes instead:
+
+git notes add -m "fix null pointer issue in Service.java"
+
+This adds info without altering commit hash.
+
+---
+
+5. Temporarily roll back a file to a previous version (e.g., v2) without losing latest (v4)
+
+git checkout <commit_hash_of_v2> -- <file>
+
+or
+
+git restore --source=<commit_hash_of_v2> <file>
+
+This changes working copy only, allowing temporary rollback.
+
+---
+
+6. Ignore build artifacts and IDE files without modifying .gitignore explicitly
+
+Use global gitignore or repo's local exclude:
+
+# Set global ignore file once
+git config --global core.excludesfile ~/.gitignore_global
+
+# Add patterns to ~/.gitignore_global (e.g., *.class, *.log, .idea/)
+
+# Or add patterns locally (not committed) in:
+.git/info/exclude
+
+---
+
+7. Save unfinished changes, switch branches, restore changes later
+
+git stash save "WIP changes"
+git checkout other-branch
+# do work...
+git checkout original-branch
+git stash pop
+
+---
+
+8. Create patch from GitHub repo latest commit and apply locally
+
+# On GitHub repo clone:
+git format-patch -1 HEAD
+
+# Transfer the generated .patch file to local repo
+
+# In local repo:
+git am 0001-<commit-message>.patch
+
+---
+
+9. Pulling = fetching + merging steps separated
+
+# Fetch updates from remote:
+git fetch origin
+
+# View fetched changes, refs updated but not merged
+
+# Merge fetched changes explicitly:
+git merge origin/main
+
+# This results in the same final state as:
+git pull
+
+---
+
+10. Add missed file (README.md) to previous commit without creating new commit
+
+git add README.md
+git commit --amend --no-edit
+
+# This amends previous commit by adding README.md but keeps the old commit message intact.
+
+---
+
+# End of Git tasks snippet

@@ -1,0 +1,13 @@
+you want to interact with github without entering your username/password each time ensure that only a secure authrnicattion method is configured and working show porrof by listiing your activa configuration
+
+
+your are working on a new featuer but instead of directly starting with a new branch you make a copy of your code and start working htere later when you try to integrate your changes into the main line,git refuses to doa fast-farward merge and reports a conflict resolve this situation in such a way that you keep the main branch as the final source of truth the conflict is fixed and hstory shows the merge clearly 
+you have two dummy files parent.tt and child.txt imagine you mistakenly commited te child frist and then parent rearrange history so thst the parent commmit comes befrore the child commmit while leeping changes intact 
+suppose you made a commit with an unclear message(fix stuff) update history so that this commit has a more meanining ful description(fix null pointer issue in ervice java) without changing its id refernce completerly in remote 
+you have a file that has  gone through 4 updates(v1->v2-v3,v4) now you want to temporily roll back the file to its v2 ssttate to test something but you must not remove or overwrite the v4 update show how git proves itself as version control system here
+in your project logs build artifact and ide generated files should not be tracked demonstatreaate how git ensured these files are ignored premenataly withour explictly saying addd to gitignore file
+your are editing pom.xml  in maven project when you suddentlt need to switch to another banch save your unfinishefd changes somewhere safe wswitch branches and then restore them back later
+
+you have two repositires one in github (hub branch) and one on your local system create a patch file from the hub repositry latest commmit transfer it treanser it to your local repo and apply it there so both repositires reflect the same change
+edmonstater the pulling is seessentialy a combination of two seperate steps first show the effect of fetching updates then explixclty  merge them and finally prove that this results in the same otucome as a single pull 
+you just commited serveral projects files but you accidently left out the readme.md instead of creating a new commmit you want to include readme.md inside the porevious commmit itslelf while keeping the same commit message .how can you fix this?
